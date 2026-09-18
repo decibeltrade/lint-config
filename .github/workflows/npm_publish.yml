@@ -19,8 +19,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          # Matches the repo's .nvmrc and engines.
+          node-version: "22"
           registry-url: "https://registry.npmjs.org"
+
+      # Node 22 bundles npm 10.9.x; OIDC trusted publishing needs >= 11.5.1.
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@^11
 
       - name: Check npm version
         id: version
