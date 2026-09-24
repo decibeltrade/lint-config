@@ -48,12 +48,24 @@ beforeAll(async () => {
 }, 120_000);
 
 describe("custom domain rules fire via oxlint JS plugins", () => {
-  it.each(["no-global-accounts-state", "no-global-perp-engine-state", "no-get-account-resource"])(
-    "custom/%s",
-    (rule) => {
-      expect(findings("custom-rules.ts", `custom/${rule}`)).not.toHaveLength(0);
-    },
-  );
+  it.each([
+    "no-global-accounts-state",
+    "no-global-perp-engine-state",
+    "no-get-account-resource",
+    "no-raw-address-comparison",
+  ])("custom/%s", (rule) => {
+    expect(findings("custom-rules.ts", `custom/${rule}`)).not.toHaveLength(0);
+  });
+
+  // Pinning the exact set guards both directions: a missed detection and a new false positive.
+  it("custom/no-raw-address-comparison reports exactly the seeded violations", () => {
+    const lines = findings("custom-rules.ts", "custom/no-raw-address-comparison").map(
+      (d) => d.message,
+    );
+    expect(lines).toHaveLength(9);
+    expect(lines.filter((m) => m.includes("One side is canonicalized"))).toHaveLength(1);
+    expect(lines.filter((m) => m.includes("Membership tests"))).toHaveLength(2);
+  });
 });
 
 describe("import sorting fires via oxlint JS plugin", () => {

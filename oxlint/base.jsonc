@@ -125,6 +125,7 @@
     "custom/no-get-account-resource": "error",
     "custom/no-global-accounts-state": "error",
     "custom/no-global-perp-engine-state": "error",
+    "custom/no-raw-address-comparison": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "turbo/no-undeclared-env-vars": "error",
