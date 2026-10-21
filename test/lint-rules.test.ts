@@ -66,6 +66,13 @@ describe("custom domain rules fire via oxlint JS plugins", () => {
     expect(lines.filter((m) => m.includes("One side is canonicalized"))).toHaveLength(1);
     expect(lines.filter((m) => m.includes("Membership tests"))).toHaveLength(2);
   });
+
+  it("custom/no-unsafe-log-fields reports exactly the seeded violations", () => {
+    const lines = findings("log-fields.ts", "custom/no-unsafe-log-fields").map((d) => d.message);
+    expect(lines.filter((m) => m.includes("Spreading a caught error"))).toHaveLength(3);
+    expect(lines.filter((m) => m.includes("bearer credential"))).toHaveLength(8);
+    expect(lines).toHaveLength(11);
+  });
 });
 
 describe("import sorting fires via oxlint JS plugin", () => {

@@ -1,4 +1,7 @@
 {
   "extends": ["../oxlint/base.jsonc"],
-  "rules": { "custom/no-raw-address-comparison": "error" }
+  "rules": {
+    "custom/no-raw-address-comparison": "error",
+    "custom/no-unsafe-log-fields": "error"
+  }
 }
