@@ -2,6 +2,8 @@
   "extends": ["../oxlint/base.jsonc"],
   "rules": {
     "custom/no-raw-address-comparison": "error",
-    "custom/no-unsafe-log-fields": "error"
+    "custom/no-unowned-background-work": "error",
+    "custom/no-unsafe-log-fields": "error",
+    "typescript/no-misused-promises": "error"
   }
 }

@@ -73,6 +73,12 @@ describe("custom domain rules fire via oxlint JS plugins", () => {
     expect(lines.filter((m) => m.includes("bearer credential"))).toHaveLength(8);
     expect(lines).toHaveLength(11);
   });
+
+  it("custom/no-unowned-background-work reports exactly the seeded violations", () => {
+    const lines = findings("background-work.ts", "custom/no-unowned-background-work");
+    expect(lines.every((d) => d.message.includes("background.spawn"))).toBe(true);
+    expect(lines).toHaveLength(12);
+  });
 });
 
 describe("import sorting fires via oxlint JS plugin", () => {
@@ -88,6 +94,10 @@ describe("type-aware rules fire via tsgolint", () => {
 
   it("typescript/no-unsafe-call", () => {
     expect(findings("type-aware.ts", "typescript/no-unsafe-call")).not.toHaveLength(0);
+  });
+
+  it("typescript/no-misused-promises", () => {
+    expect(findings("type-aware.ts", "typescript/no-misused-promises")).toHaveLength(2);
   });
 
   it("eslint-disable comments with @typescript-eslint prefix are honored", () => {
